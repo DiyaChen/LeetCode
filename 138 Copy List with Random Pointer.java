@@ -33,3 +33,34 @@ public class Solution {
         }
     }
 }
+
+//solution2
+public class Solution {
+    public RandomListNode copyRandomList(RandomListNode head) {
+        if(head == null) return null;
+        RandomListNode runner = head;
+        HashMap<RandomListNode, RandomListNode> record = new HashMap<>();
+        RandomListNode dummy = new RandomListNode(0);
+        RandomListNode cur = dummy;
+        while(runner != null)
+        {
+            RandomListNode tmp = new RandomListNode(runner.label);
+            record.put(runner, tmp);
+            runner = runner.next;
+            cur.next = tmp;
+            cur = cur.next;
+        }
+        cur.next = null;
+        cur = dummy.next;
+        runner = head;
+        while(runner != null)
+        {
+            if(runner.random == null) 
+                cur.random = null;
+            else cur.random = record.get(runner.random);
+            runner = runner.next;
+            cur = cur.next;
+        }
+        return dummy.next;
+    }
+}

@@ -19,7 +19,7 @@ public class Solution {
         if(lists == null || lists.length == 0){
             return null;
         }
-        PriorityQueue<ListNode> queue = new PriorityQueue<ListNode>(lists.length, new Comparator<ListNode>(){
+        PriorityQueue<ListNode> queue = new PriorityQueue<ListNode>(lists.length, new Comparator<ListNode>(){//pq's length, how to sort
             public int compare(ListNode n1, ListNode n2){
                 if(n1.val < n2.val){
                     return -1;

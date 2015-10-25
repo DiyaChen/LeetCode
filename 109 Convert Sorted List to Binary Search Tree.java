@@ -22,29 +22,28 @@ Given a singly linked list where elements are sorted in ascending order, convert
  * }
  */
 public class Solution {
-    static ListNode h; 
+    static ListNode cur; 
     public TreeNode sortedListToBST(ListNode head) {
         if(head == null) return null;
         int len = 0;
-        ListNode runner = head;
-        while(runner != null){
-            runner = runner.next;
+        cur = head;
+        while(cur != null)
+        {
             len++;
+            cur = cur.next;
         }
-        h = head;
-        return bottomUp(0, len - 1);
+        cur = head;
+        return buildTree(0,len-1);
     }
-    
-    private TreeNode bottomUp(int start, int end){
-        if(start > end) return null;
-        int mid = (start + end) / 2;
-        TreeNode left = bottomUp(start, mid - 1);
-        TreeNode root = new TreeNode(h.val);
-        h = h.next;
-        TreeNode right = bottomUp(mid + 1, end);
-        root.left = left;
-        root.right = right;
-        return root;
+    private TreeNode buildTree(int s, int e)
+    {
+        if(s>e) return null;
+        int mid = s+(e-s)/2;
+        n.left = buildTree(s,mid-1);
+        TreeNode n = new TreeNode(cur.val);
+        cur = cur.next;
+        n.right = buildTree(mid+1, e);
+        return n;
     }
 }
 

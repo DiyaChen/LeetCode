@@ -14,7 +14,7 @@ public class Solution {
         if(s.length() == 0){
             return true;
         }
-        Stack stack = new Stack();
+        Stack<Character> stack = new Stack<Character>();
         for(int i = 0; i < s.length(); i++){
             if(s.charAt(i) == '('){
                 stack.push(')');
@@ -26,7 +26,7 @@ public class Solution {
                 stack.push(']');
             }
             if(s.charAt(i) == ')' || s.charAt(i) == '}' || s.charAt(i) == ']'){
-                if(stack.empty() || (char)stack.peek() != s.charAt(i)){
+                if(stack.empty() || stack.peek() != s.charAt(i)){
                     return false;
                 }
                 stack.pop();

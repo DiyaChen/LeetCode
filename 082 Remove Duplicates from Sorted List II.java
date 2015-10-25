@@ -25,11 +25,11 @@ public class Solution {
         ListNode cur = head;
         while(cur != null){
             while(cur.next != null && cur.val == cur.next.val){
-                cur = cur.next;
+                cur = cur.next;//skip all dup
             }
             if(pre.next == cur) pre = cur; // no dup
             else pre.next = cur.next;
-            if(cur != null) cur = cur.next;
+            cur = cur.next;
         }
         return dummy.next;
     }

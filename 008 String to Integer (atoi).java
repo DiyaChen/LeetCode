@@ -10,17 +10,12 @@ Notes: It is intended for this problem to be specified vaguely (ie, no given inp
 
 public class Solution {
     public int myAtoi(String str) {
-        if(str == null || str.length() == 0){
-            return 0;
-        }
         str = str.trim();   // remove space
-        if(str.length() == 0){
-            return 0;
-        }
-
+        if(str.length() == 0)
+            return 0;        
         int start = 0;
         int sign = 1;
-        double result = 0;
+        double result = 0;//double is longer than long!!!
         if(str.charAt(0) == '-'){   // verify sign
             sign = -1;
             start++;

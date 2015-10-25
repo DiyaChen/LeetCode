@@ -16,12 +16,11 @@ Here are some examples. Inputs are in the left-hand column and its corresponding
 * From right to left, find the first digit which violate the increase trend,
 * in this example, 6 will be selected since 87432 already in a increase trend.
 * 
-* From right to left, find the first digit which large than that number, here the 7
-* will be selected.
+* From right to left, find the first digit which large than 6, here the 7 will be selected.
 * 
 * Swap the two number.
 * 
-* Reserve all the digit on the right of partition index.
+* Reverse all the digit on the right of partition index.
 * 
 * 6 8 7 4 3 2
 * 6* 8 7 4 3 2
@@ -36,7 +35,7 @@ public class Solution {
             return;
         }
         
-        int a = -1;
+        int a = -1;//if there doesn't exsits a number violate the increase trend 
         for(int i = nums.length - 2; i >= 0; i--){
             if(nums[i] < nums[i + 1]){
                 a = i;
@@ -57,7 +56,7 @@ public class Solution {
             nums[b] = tmp;
         }
 
-        for(int i = a+1, j = nums.length - 1; i <= j; i++, j--){
+        for(int i = a+1, j = nums.length - 1; i < j; i++, j--){
             int tmp = nums[i];
             nums[i] = nums[j];
             nums[j] = tmp;

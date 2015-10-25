@@ -20,25 +20,22 @@ return 1->2->2->4->3->5.
  */
 public class Solution {
     public ListNode partition(ListNode head, int x) {
-        if(head == null || head.next == null){
-            return head;
-        }
-        ListNode smallHead = new ListNode(-1);
-        ListNode bigHead = new ListNode(-1);
-        ListNode smallRunner = smallHead;
-        ListNode bigRunner = bigHead;
-        while(head != null){
-            if(head.val < x){
-                smallRunner.next = head;
-                smallRunner = smallRunner.next;
-            }else{
-                bigRunner.next = head;
-                bigRunner = bigRunner.next;
+        ListNode dummy = new ListNode(0);
+        dummy.next = head;
+        ListNode cur = dummy;
+        ListNode pre = dummy;
+        while(cur != null && cur.next != null)
+        {
+            if(cur.next.val < x)
+            {
+                ListNode tmp = cur.next;
+                cur.next = tmp.next;
+                tmp.next = pre.next;
+                pre.next = tmp;
+                pre = pre.next;
             }
-            head = head.next;
+            cur = cur.next;
         }
-        bigRunner.next = null;
-        smallRunner.next = bigHead.next;
-        return smallHead.next;
+        return dummy.next;
     }
 }

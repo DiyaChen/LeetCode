@@ -6,7 +6,7 @@ Given a string, find the length of the longest substring without repeating chara
 
 public class Solution {
     public int lengthOfLongestSubstring(String s) {
-
+        //method1
         if(s == null || s.length() == 0) return 0;
         Map<Character,Integer> map = new HashMap<Character,Integer>();
         int start = 0;
@@ -19,7 +19,9 @@ public class Solution {
             len = Math.max(len, i-start+1);
         }
         return s.substring(left, left+len);
-        /*if(s == null || s.length() == 0) return 0;
+
+        /* method2
+        if(s == null || s.length() == 0) return 0;
         Set<Character> set = new HashSet<Character>();
         int max = 1;
         int start = 0;
