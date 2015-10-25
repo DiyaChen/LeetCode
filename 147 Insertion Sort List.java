@@ -18,21 +18,14 @@ public class Solution {
             return head;
         }
         ListNode dummy = new ListNode(-1);
-        dummy.next = head;
-        while(head.next != null){    // until head is the last node
-            ListNode cur = head.next;
-            if(head.val <= cur.val){
-                head = cur;
-                cur = cur.next;
-            }else{
-                head.next = cur.next;
-                ListNode start = dummy;
-                while(cur.val > start.next.val){
-                    start = start.next;
-                }
-                cur.next = start.next;
-                start.next = cur;
-            }
+        while(head.next!= null){    // until head is the last node
+            ListNode pre = dummy;//dummy.next == null at first
+            ListNode cur = head;
+            head = head.next;
+            while(pre.next != null && head.val > pre.next.val)
+                pre = pre.next;//not the insertion spot
+            cur.next = pre.next;//insert
+            pre.next = cur;           
         }
         return dummy.next;
     }
