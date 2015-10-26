@@ -16,33 +16,40 @@ You should return the following matrix:
 
 public class Solution {
     public int[][] generateMatrix(int n) {
-        if(n <= 0){
-            return new int[0][0];
-        }
-        int[][] result = new int[n][n];
-        int i = 1;
-        int startR = 0;
-        int endR = n - 1;
-        int startC = 0;
-        int endC = n - 1;
-        while(startR <= endR && startC <= endC){
-            for(int j = startC; j <= endC; j++){
-                result[startR][j] = i++;
+            int[][] res = new int[n][n];
+            if(n <= 0) return res;
+            int left = 0; 
+            int right = n-1;
+            int top = 0;
+            int down = n-1;
+            int count = 0;
+            while(count != n*n)//count == 9, stop
+            {
+                for(int i = left; i <= right; i++)
+                    {
+                    count++;
+                    res[top][i] = count;
+                    }
+                top++;
+                for(int i = top; i <= down; i++) 
+                    {
+                    count++;
+                    res[i][right] = count;
+                    }
+                right--;
+                for(int i = right; i>=left; i--)
+                     {
+                    count++;
+                    res[down][i] = count;
+                     }
+                down--;
+                for(int i = down; i >= top; i--)
+                    {
+                    count++;
+                    res[i][left] = count;                   
+                    }
+                left++;
             }
-            startR++;
-            for(int j = startR; j <= endR; j++){
-                result[j][endC] = i++;
-            }
-            endC--;
-            for(int j = endC; j >= startC; j--){
-                result[endR][j] = i++;
-            }
-            endR--;
-            for(int j = endR; j >= startR; j--){
-                result[j][startC] = i++;
-            }
-            startC++;
-        }
-        return result;
+          return res;  
     }
 }

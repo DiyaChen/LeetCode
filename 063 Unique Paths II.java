@@ -22,20 +22,31 @@ Note: m and n will be at most 100.
 
 public class Solution {
     public int uniquePathsWithObstacles(int[][] obstacleGrid) {
-        if(obstacleGrid == null || obstacleGrid.length < 1 || obstacleGrid[0].length < 1 || obstacleGrid[0][0] == 1){
-            return 0;
+        int[][] table = new int[obstacleGrid.length][obstacleGrid[0].length];
+        for(int i = 0; i< obstacleGrid.length; i++)
+        {
+            if(obstacleGrid[i][0]==1)
+                table[i][0] = 0;
+            else 
+                table[i][0] = 1;
         }
-        int row = obstacleGrid.length;
-        int col = obstacleGrid[0].length;
-        int result[][] = new int[row + 1][col + 1];
-        result[1][1] = 1;
-        for(int i = 1; i <= row; i++){
-            for(int j = 1; j <= col; j++){
-                if(!(i == 1 && j == 1)){
-                    result[i][j] = obstacleGrid[i - 1][j - 1] == 1 ? 0 : result[i-1][j] + result[i][j-1];
-                }
+        for(int j = 0; j< obstacleGrid[0].length; j++)
+        {
+            if(obstacleGrid[0][j] == 1)
+                table[0][j] = 0;
+            else
+                table[0][j] = 1;
+        }
+        for(int i = 1; i< obstacleGrid.length; i++)
+        {
+            for(int j = 1; j< obstacleGrid[0].length; j++)
+            {
+                if(obstacleGrid[i][j] == 1)
+                    table[i][j] = 0;
+                else
+                    table[i][j] = table[i-1][j] + table[i][j-1];
             }
         }
-        return result[row][col];
+        return table[obstacleGrid.length-1][obstacleGrid[0].length-1];
     }
 }

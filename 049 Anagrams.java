@@ -28,9 +28,7 @@ public class Solution {
         }
         for(ArrayList<Integer> ls : map.values()){
             if(ls.size() > 1){
-                for(Integer num : ls){
-                    result.add(strs[num]);
-                }
+                res.add(ls);
             }
         }
         return result;

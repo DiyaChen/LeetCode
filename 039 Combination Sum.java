@@ -18,28 +18,27 @@ A solution set is:
 
 public class Solution {
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-        List<Integer> list = new ArrayList<Integer>();
-        if(candidates == null || candidates.length == 0){
-            return result;
-        }
-        Arrays.sort(candidates); 
-        dfs(result, list, candidates, 0, target);
-        return result;
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        List<Integer> cur = new ArrayList<Integer>();
+        if(candidates == null || candidates.length == 0) 
+            return res;
+        Arrays.sort(candidates); //in non-descending order
+        dfs(res, cur, candidates, 0, target);
+        return res;
     }
     
-    private void dfs(List<List<Integer>> result, List<Integer> list, int[] candidates, int start, int target){
+    private void dfs(List<List<Integer>> res, List<Integer> cur, int[] candidates, int start, int target){
         if(target < 0){
             return;
         }
         if(target == 0){
-            result.add(new ArrayList<Integer>(list));
+            result.add(new ArrayList<Integer>(cur));
             return;
         }      
         for(int i = start; i < candidates.length; i++){
             list.add(candidates[i]);
             dfs(result, list, candidates, i, target - candidates[i]);   // the next round can also starts from i
-            list.remove(list.size()-1);
+            cur.remove(cur.size()-1);
             while(i < candidates.length - 1 && candidates[i] == candidates[i + 1]){ // skip duplicate element
                 i++;
             }
