@@ -24,7 +24,7 @@ public class Solution {
         
         if(nums[a] < nums[m]){
             if(nums[a] <= target && target < nums[m]){
-                return bs(nums, a, m - 1, target);
+                return bs(nums, a, m, target);
             }else{
                 return bs(nums, m + 1, b, target);
             }
@@ -32,7 +32,7 @@ public class Solution {
             if(nums[m] < target && target <= nums[b]){
                 return bs(nums, m + 1, b, target);
             }else{
-                return bs(nums, a, m - 1, target);
+                return bs(nums, a, m, target);
             }
         }else{  // nums[a] == nums[m]: a == m or a != m
             if(nums[m] != nums[b]){ // nums[a] ~ nums[m] are repeats
