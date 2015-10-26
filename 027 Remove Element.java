@@ -15,8 +15,7 @@ public class Solution {
             }
             else{
                 A[i-count] = A[i];
-            }
-            
+            }            
         }
         return A.length - count;
     }

@@ -11,31 +11,18 @@ Return "100".
 
 public class Solution {
     public String addBinary(String a, String b) {
-        if(a == null || a.length() == 0) return b;
-        if(b == null || b.length() == 0) return a;
-
-        a = new StringBuffer(a).reverse().toString();
-        b = new StringBuffer(b).reverse().toString();
-        int[] result = new int[Math.max(a.length(), b.length()) + 1];
-
-        for(int i = 0; i < result.length; i++){
-            int first = i >= a.length() ? 0 : a.charAt(i) - '0';
-            int second = i >= b.length() ? 0 : b.charAt(i) - '0';
-            result[i] = first + second;
-        }
-
-        StringBuffer ans = new StringBuffer();
-        for(int i = 0; i < result.length; i++){
-            int mod = result[i] % 2;
-            int carry = result[i] / 2;
-            if(i < result.length - 1){
-                result[i + 1] += carry;
-            }
-            ans.insert(0, mod);
-        }
-        while(ans.charAt(0) == '0' && ans.length() > 1){
-            ans.deleteCharAt(0);
-        }
-        return ans.toString();
+        StringBuilder res = new StringBuilder();
+       int carry = 0;
+       for(int i = 0; i< a.length() || i< b.length(); i++)
+       {
+           int value1 = i < a.length()? a.charAt(a.length()-1-i) - '0' : 0;//the last digit of a, if this digit doesn't exsit, use 0 to make up 
+           int value2 = i < b.length()? b.charAt(b.length()-1-i) - '0' : 0;// the last digit of b
+           int temp = (value1 + value2 + carry) % 2;//calculate the last digit
+           carry = (value1 + value2 + carry) / 2;
+           res.insert(0,(char)('0'+temp));//don't forget to add '0'
+       }
+       if(carry == 1)
+        res.insert(0,'1');
+       return res.toString();
     }
 }
