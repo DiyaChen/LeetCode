@@ -15,26 +15,19 @@ For the purpose of this problem, we define empty string as valid palindrome.
 
 public class Solution {
     public boolean isPalindrome(String s) {
-        if(s.length() == 0 || s.length() == 1){
-            return true;
+        int left = 0;
+        int right = s.length()-1;
+        s = s.toLowerCase();
+        while(left < right)
+        {
+            if(!Character.isLetterOrDigit(s.charAt(left))) left++;
+            else if(!Character.isLetterOrDigit(s.charAt(right))) right--;
+            else if(s.charAt(left) != s.charAt(right)) return false;
+            else{
+                left++;
+                right--;
+            }
         }
-        int p1 = 0;
-        int p2 = s.length() - 1;
-        while(p1 < p2){
-            if(!(s.charAt(p1) >= 'a' && s.charAt(p1) <= 'z' || s.charAt(p1) >= 'A' && s.charAt(p1) <='Z' || s.charAt(p1) >= '0' && s.charAt(p1) <= '9')){
-                p1++;
-                continue;
-            }
-            if(!(s.charAt(p2) >= 'a' && s.charAt(p2) <= 'z' || s.charAt(p2) >= 'A' && s.charAt(p2) <='Z' || s.charAt(p2) >= '0' && s.charAt(p2) <= '9')){
-                p2--;
-                continue;
-            }
-            if(Character.toLowerCase(s.charAt(p1)) != Character.toLowerCase(s.charAt(p2))){
-                return false;
-            }
-            p1++;
-            p2--;
-        }
-        return true;
+    return true;    
     }
 }

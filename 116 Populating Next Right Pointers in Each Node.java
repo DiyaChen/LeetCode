@@ -41,27 +41,16 @@ After calling your function, the tree should look like:
  */
 public class Solution {
     public void connect(TreeLinkNode root) {
-        if(root == null || root.left == null && root.right == null){
-            return;
-        }
-        ArrayList<TreeLinkNode> current = new ArrayList<TreeLinkNode>();
-        current.add(root);
-        while(!current.isEmpty()){
-            ArrayList<TreeLinkNode> next = new ArrayList<TreeLinkNode>();
-            for(int i = 0; i < current.size(); i++){
-                if(current.get(i).left != null){
-                    next.add(current.get(i).left);
-                }
-                if(current.get(i).right != null){
-                    next.add(current.get(i).right);
-                }
-                if(i == current.size()-1){
-                    current.get(i).next = null;
-                }else{
-                    current.get(i).next = current.get(i+1);
-                }
-            }
-            current = next;
-        }
+        if(root == null) return;
+       if(root.left != null)
+       {
+         root.left.next = root.right;  
+       }
+       if(root.right != null)
+       {
+           root.right.next = root.next != null? root.next.left: null;
+       }
+        connect(root.left);
+        connect(root.right);
     }
 }

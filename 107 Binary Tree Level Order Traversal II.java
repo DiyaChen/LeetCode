@@ -29,29 +29,24 @@ return its bottom-up level order traversal as:
  */
 public class Solution {
     public List<List<Integer>> levelOrderBottom(TreeNode root) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-        if(root == null){
-            return result;
-        }
-        List<TreeNode> currentNodes = new ArrayList<TreeNode>();
-        currentNodes.add(root);
-
-        while(!currentNodes.isEmpty()){
-            List<Integer> currentIntegers = new ArrayList<Integer>();
-            List<TreeNode> nextNodes = new ArrayList<TreeNode>();
-            
-            for(TreeNode tn : currentNodes){
-                currentIntegers.add(tn.val);
-                if(tn.left != null){
-                    nextNodes.add(tn.left);
-                }    
-                if(tn.right != null){
-                    nextNodes.add(tn.right);
-                }
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(root == null) return res;
+        
+        Queue<TreeNode> q = new LinkedList<TreeNode>();
+        q.add(root);
+        while(!q.isEmpty())
+        {
+             List<Integer> cur = new ArrayList<Integer>();
+             int size = q.size();
+            for(int i= 0; i< size; i++)
+            {
+                 TreeNode n = q.poll();
+                 cur.add(n.val);
+                 if(n.left != null) q.add(n.left);
+                 if(n.right != null) q.add(n.right);
             }
-            result.add(0, currentIntegers);
-            currentNodes = nextNodes;
+           res.add(0,cur); 
         }
-        return result;
+        return res;
     }
 }

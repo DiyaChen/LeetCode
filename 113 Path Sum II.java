@@ -39,7 +39,7 @@ public class Solution {
         return result;
     }
     
-    private void aux(List<List<Integer>> result, List<Integer> list, TreeNode root, int sum){
+    private void dfs(List<List<Integer>> result, List<Integer> list, TreeNode root, int sum){
         if(root.left == null && root.right == null){
             if(root.val == sum){
                 List<Integer> newlist = new ArrayList<Integer>(list);

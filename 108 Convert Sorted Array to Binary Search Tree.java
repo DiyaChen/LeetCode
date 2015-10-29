@@ -25,8 +25,6 @@ public class Solution {
     public TreeNode aux(int[] num, int a, int b){
         if(a > b){
             return null;
-        }else if(a == b){
-            return new TreeNode(num[a]);
         }else{
             int m = (a + b) / 2;
             TreeNode root = new TreeNode(num[m]);

@@ -22,18 +22,18 @@ Given n = 3, your program should return all 5 unique BST's shown below.
  */
 public class Solution {
     public List<TreeNode> generateTrees(int n) {
-        return DP(1, n);
+        return dfs(1, n);
     }
 
-    private List<TreeNode> DP(int begin, int end){  // return a list of ROOTs of tree, the roots rang from begin to end
+    private List<TreeNode> dfs(int begin, int end){  // return a list of ROOTs of tree, the roots range from begin to end
         List<TreeNode> currList = new ArrayList<TreeNode>();
         if(begin > end){
             currList.add(null);
             return currList;
         }
         for(int i = begin; i <= end; i++){
-            List<TreeNode> leftSubtrees = DP(begin, i - 1); // all the possible root of left
-            List<TreeNode> rightSubtrees = DP(i + 1, end);  // all the possible root of right
+            List<TreeNode> leftSubtrees = dfs(begin, i - 1); // all the possible root of left
+            List<TreeNode> rightSubtrees = dfs(i + 1, end);  // all the possible root of right
             for(TreeNode leftRoot : leftSubtrees){
                 for(TreeNode rightRoot : rightSubtrees){
                     TreeNode root = new TreeNode(i);
