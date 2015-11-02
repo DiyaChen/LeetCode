@@ -39,14 +39,8 @@ public class Solution {
         }
 
         for(int i = start; i <= 9; i++){
-            if(i > sum){
-                break;
-            }
-            if(list.size() == count){
-                break;
-            }
             list.add(i);
-            dfs(result, list, i + 1, sum - i, count);
+            dfs(result, list, i + 1, sum - i, count-1);
             list.remove(list.size() - 1);
         }
     }

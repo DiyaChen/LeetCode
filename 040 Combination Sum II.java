@@ -39,7 +39,7 @@ public class Solution {
         }
         for(int i = start; i < candidates.length; i++){
             list.add(candidates[i]);
-            dfs(result, list, candidates, i + 1, target - candidates[i]);   // next round starts from i + 1
+            dfs(result, list, candidates, i + 1, target - candidates[i]);   // next round starts from i + 1, because one element can be used only once
             list.remove(list.size() - 1);
             while(i < candidates.length - 1 && candidates[i] == candidates[i + 1]){ // skip duplicate element
                 i++;

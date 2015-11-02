@@ -26,18 +26,16 @@ public class Solution {
             return 0;
         }
         wordDict.add(endWord);
-        int result = Integer.MAX_VALUE;
         LinkedList<String> wordQueue = new LinkedList<String>();
         LinkedList<Integer> distanceQueue = new LinkedList<Integer>();
         wordQueue.add(beginWord);
         distanceQueue.add(1);   // begin word != end word, so at least 1 distance
         
         while(wordQueue.size() != 0){
-            String currentWord = wordQueue.pop();
-            int currentDistance = distanceQueue.pop();
+            String currentWord = wordQueue.poll();
+            int currentDistance = distanceQueue.poll();
             if(currentWord.equals(endWord)){
-                result = currentDistance;
-                break;
+                return result = currentDistance;
             }
             
             for(int i = 0; i < currentWord.length(); i++){
@@ -53,9 +51,6 @@ public class Solution {
                 }
             }
         }
-        if (result < Integer.MAX_VALUE)
-            return result;
-        else
-            return 0;
+        return 0;
     }
 }

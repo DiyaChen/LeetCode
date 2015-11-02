@@ -34,33 +34,40 @@ public class Solution {
         if(nums == null || nums.length == 1){
             return;
         }
-        
-        int a = -1;//if there doesn't exsits a number violate the increase trend 
         for(int i = nums.length - 2; i >= 0; i--){
             if(nums[i] < nums[i + 1]){
-                a = i;
-                break;
-            }
-        }
-        
-        if(a != -1){
-            int b = -1;
-            for(int i = nums.length - 1; i >= 0; i--){
-                if(nums[i] > nums[a]){
-                    b = i;
-                    break;
+                int j = nums.length-1;
+                while(j>i)
+                {
+                    if(nums[j] > nums[i])
+                        break;
+                    j--;
                 }
+                swap(nums, i, j);
+                reverse(nums, i+1);
+                return;
             }
-            int tmp = nums[a];
-            nums[a] = nums[b];
-            nums[b] = tmp;
         }
-
-        for(int i = a+1, j = nums.length - 1; i < j; i++, j--){
-            int tmp = nums[i];
-            nums[i] = nums[j];
-            nums[j] = tmp;
-        }
-        return;
+        reverse(nums,0);//if doesn't find the next permutation, then reverse the whole array
     }
+    private void swap(int[] nums, int i , int j)
+    {
+        int tmp = nums[i];
+        nums[i] = nums[j];
+        nums[j] = tmp;
+    }
+    private void reverse(int[] nums, int s)
+    {
+        if(nums == null || nums.length == 0) return;
+        int e = nums.length-1;
+        while(s<e)
+        {
+            swap(nums,s,e);
+            s++;
+            e--;
+        }
+    }
+
 }
+        
+        
