@@ -36,7 +36,7 @@ public class Solution{
         }
      
         // counter for number of prerequisites
-        int[] pCounter = new int[numCourses];   // index: course ID; value: number of prerequisites
+        int[] pCounter = new int[numCourses];// index: course ID; value: number of prerequisites
         for(int[] a : prerequisites){
             pCounter[a[0]]++;
         }
@@ -51,9 +51,8 @@ public class Solution{
      
         // number of courses that have no prerequisites
         int numNoPre = queue.size();
-
         while(!queue.isEmpty()){
-            int top = queue.remove();
+            int top = queue.remove();//remove course without prerequisites
             for(int[] a : prerequisites){
                 if(a[1] == top){
                     pCounter[a[0]]--;

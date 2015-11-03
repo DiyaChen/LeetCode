@@ -42,7 +42,7 @@ public class Solution {
         map.put(node, cloneNode);   // marke as cloned
         
         LinkedList<UndirectedGraphNode> queue = new LinkedList<UndirectedGraphNode>();
-        queue.add(node);    // // waite for processing
+        queue.add(node);    //wait for processing
         
         while(!queue.isEmpty()){
             UndirectedGraphNode cur = queue.pop();

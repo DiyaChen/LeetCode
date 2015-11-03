@@ -20,27 +20,24 @@ X O X X
 
 public class Solution {
     public void solve(char[][] board) {
-        if(board == null){
+        if(board == null || board.length < 3 || board[0].length < 3){
             return;
         }
-        if(board.length < 3 || board[0].length < 3){
-            return;
-        }
-        
+
         for(int i = 0; i < board.length; i++){
-            if(board[i][0] == 'O'){
+            if(board[i][0] == 'O'){//left
                 DFS(board, i, 0);
             }
-            if(board[i][board[0].length - 1] == 'O'){
+            if(board[i][board[0].length - 1] == 'O'){//right
                 DFS(board, i, board[0].length - 1);
             }
         }
         
-        for(int j = 1; j < board[0].length - 1; j++){
+        for(int j = 1; j < board[0].length - 1; j++){//up
             if(board[0][j] == 'O'){
                 DFS(board, 0, j);
             }
-            if(board[board.length - 1][j] == 'O'){
+            if(board[board.length - 1][j] == 'O'){//bottom
                 DFS(board, board.length - 1, j);
             }
         }
@@ -55,7 +52,6 @@ public class Solution {
                 }
             }
         }
-        return;
     }
     
     private void DFS(char[][] board, int row, int col){

@@ -40,7 +40,7 @@ public class Solution {
             grid[i - 1][j] = '0';
             dfs(grid, i - 1, j);
         }
-        if(i <= grid.length - 2 && grid[i + 1][j] == '1'){
+        if(i < grid.length - 1 && grid[i + 1][j] == '1'){
             grid[i + 1][j] = '0';
             dfs(grid, i + 1, j);
         }
@@ -48,7 +48,7 @@ public class Solution {
             grid[i][j - 1] = '0';
             dfs(grid, i, j - 1);
         }
-        if(j <= grid[0].length - 2 && grid[i][j + 1] == '1'){
+        if(j < grid[0].length - 1 && grid[i][j + 1] == '1'){
             grid[i][j + 1] = '0';
             dfs(grid, i, j + 1);
         }
