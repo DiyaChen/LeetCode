@@ -29,47 +29,46 @@ Topological sort could also be done via BFS.
 // BFS solution
 public class Solution {
     public int[] findOrder(int numCourses, int[][] prerequisites) {
-        if(numCourses == 0){
+                if(numCourses == 0)
             return new int[0];
+        int[] res = new int[numCourses];
+        if(prerequisites.length == 0)//if every course does not have prerequisites, then take the courses in increasing order
+        {
+            for(int i = 0; i< numCourses; i++)
+                res[i] = i;
+            return res;
         }
-        int len = prerequisites.length;
-        int[] result = new int[numCourses];
-        if(len == 0){        
-            for(int i = 0; i < numCourses; i++){
-                result[i] = i;
-            }
-            return result;
-        }
-        
-        int[] pCounter = new int[numCourses]; // index: course ID; value: number of prerequisites
-        for(int[] a : prerequisites){
+        int[] pCounter = new int[numCourses];
+        for(int[] a : prerequisites)
             pCounter[a[0]]++;
-        }
-        int take = 0;
-        LinkedList<Integer> queue = new LinkedList<Integer>();
-        for(int i = 0; i < numCourses; i++){
-            if(pCounter[i] == 0){
+        Queue<Integer> queue = new LinkedList<Integer>();
+        for(int i = 0; i< numCourses; i++)
+        {
+            if(pCounter[i] == 0)
                 queue.add(i);
-            }
         }
-        int j = 0;
-        while(!queue.isEmpty()){
-            int course = queue.remove();
-            result[j++] = course;
-            take++;
-            for(int i = 0; i < len; i++){
-                if(prerequisites[i][1] == course){
-                    pCounter[prerequisites[i][0]]--;
-                    if(pCounter[prerequisites[i][0]] == 0){
-                        queue.add(prerequisites[i][0]);
+        int counter = 0;//count result number
+        int num = queue.size();//course can be taken 
+        while(!queue.isEmpty())
+        {
+            int top = queue.remove();
+            res[counter++] = top;
+            for(int[] a : prerequisites)
+            {
+                if(a[1] == top)
+                {
+                    pCounter[a[0]]--;
+                    if(pCounter[a[0]] == 0)
+                    {
+                        num++;
+                        queue.add(a[0]);
                     }
                 }
             }
-        }       
-        if(take == numCourses){
-            return result;
-        }else{
-            return new int[0];
         }
+        if(num == numCourses)
+            return res;
+        else
+            return new int[0];
     }
 }

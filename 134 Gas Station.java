@@ -13,19 +13,18 @@ The solution is guaranteed to be unique.
 
 public class Solution {
     public int canCompleteCircuit(int[] gas, int[] cost) {
-        int remainInTank = 0;
-        int totalExtra = 0;
+        int tank = 0;
+        int total = 0;
         int start = 0;
         for(int i = 0; i < gas.length; i++){
-            totalExtra += gas[i] - cost[i];
-            if(remainInTank >= 0){    // can reach i point
-                remainInTank += gas[i] - cost[i]; // may be negtive
-            }else{  // can reach i - 1, cannot reach i
-                start = i;
-                remainInTank = gas[i] - cost[i];
+            total += gas[i] - cost[i];//should travel around the circuit once, so have to track the total amount
+            tank += gas[i] - cost[i]; // may be negative
+            if(tank < 0) //can not reach i+1 
+                start = i+1;//update start
+                tank = 0;
             }
         }
-        if(totalExtra < 0)
+        if(total < 0)
             return -1;
         else
             return start;
