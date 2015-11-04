@@ -27,14 +27,10 @@ Topological sort could also be done via BFS.
 // BFS solution
 public class Solution{
     public boolean canFinish(int numCourses, int[][] prerequisites) {   // [course, prerequisite]
-        if(prerequisites == null){
+        if(prerequisites == null || numCourses == 0 || prerequisites.length == 0){
             return true;
         }
-        int len = prerequisites.length;
-        if(numCourses == 0 || len == 0){
-            return true;
-        }
-     
+
         // counter for number of prerequisites
         int[] pCounter = new int[numCourses];// index: course ID; value: number of prerequisites
         for(int[] a : prerequisites){
@@ -70,11 +66,7 @@ public class Solution{
 // DFS solution
 public class Solution{
     public boolean canFinish(int numCourses, int[][] prerequisites) {
-        if(prerequisites == null){
-            return false;
-        }
-        int len = prerequisites.length;
-        if(numCourses == 0 || len == 0){
+        if(prerequisites == null || numCourses == 0 || prerequisites.length == 0){
             return true;
         }
 
