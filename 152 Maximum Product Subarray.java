@@ -9,24 +9,15 @@ the contiguous subarray [2,3] has the largest product = 6.
 
 public class Solution {
     public int maxProduct(int[] nums) {
-        if(nums == null || nums.length == 0){
-            return 0;
-        }
-        if(nums.length == 1){
-            return nums[0];
-        }
-        int[] maxEndBy = new int[nums.length];
-        int[] minEndBy = new int[nums.length];
-        int result;
-        maxEndBy[0] = nums[0];
-        minEndBy[0] = nums[0];
-        result = nums[0];
-        
+        int max = nums[0];
+        int min = nums[0];
+        int res = nums[0];        
         for(int i = 1; i < nums.length; i++){
-            maxEndBy[i] = Math.max(Math.max(maxEndBy[i - 1] * nums[i], minEndBy[i - 1] * nums[i]), nums[i]);
-            minEndBy[i] = Math.min(Math.min(minEndBy[i - 1] * nums[i], maxEndBy[i - 1] * nums[i]), nums[i]);
-            result = Math.max(result, maxEndBy[i]);
+            int tmp = max;
+            max = Math.max(Math.max(tmp*nums[i],min*nums[i]),nums[i]);
+            min = Math.min(Math.min(tmp*nums[i],min*nums[i]), nums[i]);
+            res = Math.max(max, res);
         }
-        return result;
+        return res;
     }
 }

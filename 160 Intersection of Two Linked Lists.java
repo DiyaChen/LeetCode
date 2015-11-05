@@ -39,8 +39,10 @@ public class Solution {
         int lenB = getLen(headB);
         for(int i = 0; i< Math.abs(lenB-lenA);i++)
         {
-            if(lenA < lenB) headB = headB.next;
-            else headA = headA.next;
+            if(lenA < lenB) 
+                headB = headB.next;
+            else 
+                headA = headA.next;
         }
         while(headA != null && headB != null)
         {
@@ -48,7 +50,8 @@ public class Solution {
             {
                 headA = headA.next;
                 headB = headB.next;
-            }else return headA;
+            }else 
+                return headA;
         }
         return null;
     }
