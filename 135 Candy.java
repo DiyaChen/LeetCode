@@ -12,23 +12,33 @@ What is the minimum candies you must give?
 
 public class Solution {
     public int candy(int[] ratings) {
-        if(ratings == null || ratings.length == 0) return 0;
-        int[] candys = new int[ratings.length];
-        candys[0] = 1;
-        for(int i = 1; i < candys.length; i++){
-            if(ratings[i - 1] < ratings[i]){
-                candys[i] = candys[i - 1] + 1;
-            }else{
-                candys[i] = 1;
-            }
+        if(ratings == null || ratings.length == 0)
+            return 0;
+        int[] res1 = new int[ratings.length];
+        res1[0] = 1;
+        for(int i = 1; i< ratings.length; i++)
+        {
+            if(ratings[i]>ratings[i-1])
+            {
+                res1[i] = res1[i-1]+1;
+            }else
+                res1[i] = 1;
         }
-        int result = candys[candys.length - 1];
-        for(int i = candys.length - 2; i >= 0; i--){
-            if(ratings[i] > ratings[i + 1]){
-                candys[i] = Math.max(candys[i], candys[i + 1] + 1);
-            }
-            result += candys[i];
+        int[] res2 = new int[ratings.length];
+        res2[ratings.length-1] = res1[ratings.length-1];
+        for(int i = ratings.length-1; i> 0; i--)
+        {
+            if(ratings[i] < ratings[i-1])
+            {
+                res2[i-1] = res2[i]+1;
+            }else
+                res2[i-1] = 1;
         }
-        return result;
+        int sum = 0;
+        for(int i = 0; i< ratings.length; i++)
+        {
+            sum += Math.max(res1[i], res2[i]);
+        }
+        return sum;
     }
 }

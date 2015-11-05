@@ -22,16 +22,36 @@ public class Solution {
             return new String();
         }
         String[] array = s.split(" ");
-        StringBuffer result = new StringBuffer();
+        String str = new String();
         for(int i = array.length - 1; i >= 0; i--){
             if(!array[i].equals("")){
-                result.append(array[i]).append(" ");
+                str += array[i];
+                if(i != 0)
+                    str += " ";
             }
         }
-        if(result.length() == 0){
+        return str;
+    }
+}
+//method2, no split, just reverse
+public class Solution{
+    public String reverseWords(String s){
+        s = s.trim();
+        if(s == null || s.length() == 0)
             return "";
-        }else{
-            return result.toString().substring(0, result.length() - 1);
+        StringBuilder sb = new StringBuilder();
+        int start = 0;
+        for(int i = 0; i <= s.length(); i++)
+        {
+            if(i == s.length())
+               sb.insert(0, s.substring(start,i));
+           else if(s.charAt(i) == ' ')
+           {
+               if(i > start)
+                    sb.insert(0, ' '+ s.substring(start,i));
+               start = i+1;
+           }          
         }
+        return sb.toString();
     }
 }

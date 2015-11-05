@@ -15,28 +15,27 @@ public class Solution {
         if(tokens == null || tokens.length == 0){
             return 0;
         }
-        Stack<String> stack = new Stack<String>();
-        int result = 0;
-        String optr = "+-*/";
+        Stack<Integer> stack = new Stack<Integer>();
         for(int i = 0; i < tokens.length; i++){
-            if(optr.contains(tokens[i])){   // tokens[i] is operator
-                int opn1 = Integer.valueOf(stack.pop());
-                int opn2 = Integer.valueOf(stack.pop());
-                switch(tokens[i].charAt(0)){
-                    case '+': stack.push(String.valueOf(opn1 + opn2));
-                                break;
-                    case '-': stack.push(String.valueOf(opn2 - opn1));
-                                break;
-                    case '*': stack.push(String.valueOf(opn2 * opn1));
-                                break;
-                    case '/': stack.push(String.valueOf(opn2 / opn1));
-                                break;
+            if(tokens[i].equals("+"))
+                stack.push(stack.pop() + stack.pop());
+            else if(tokens[i].equals("-"))
+                {
+                    int op1 = stack.pop();
+                    int op2 = stack.pop();
+                    stack.push(op2-op1);
                 }
-            }else{
-                stack.push(tokens[i]);
+            else if(tokens[i].equals("*"))
+                stack.push(stack.pop() * stack.pop())
+            else if(tokens[i].equals("/")){
+                int op1 = stack.pop();
+                int op2 = stack.pop();
+                stack.push(op2/op1);
+            }    
+            else{
+                stack.push(Integer.valueOf(tokens[i]));
             }
-        }
-        result = Integer.valueOf(stack.pop());
-        return result;
+        }       
+        return stack.peek();
     }
 }
