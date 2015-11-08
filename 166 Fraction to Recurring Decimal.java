@@ -18,7 +18,7 @@ public class Solution {
         if (numerator == 0) return "0";
         
         StringBuilder res = new StringBuilder();
-        Long n = new Long(numerator); // convert to long
+        Long n = new Long(numerator); // if the integer is the Integer_Min -2147483648,then make it abs will overflow, so convert it to long
         Long d = new Long(denominator);
         if ((n < 0 && d > 0) || (n > 0 && d < 0)) res.append("-"); // negative
         

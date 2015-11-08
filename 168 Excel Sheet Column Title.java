@@ -16,14 +16,13 @@ For example:
 
 public class Solution {
     public String convertToTitle(int n) {
-        if(n == 0){
+        if(n == 0){//special case 
             return new String("");
         }
         StringBuffer sb = new StringBuffer();
         while( n > 0){
-            n--;
-            int offset = n % 26;
-            char c = (char)('A' + offset);
+            int remainder = (--n) % 26;//get remainder to add 'A'
+            char c = (char)('A' + remainder);
             sb.insert(0, c);
             n = n / 26;
         }

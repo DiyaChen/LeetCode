@@ -27,6 +27,7 @@ return its level order traversal as:
  *     TreeNode(int x) { val = x; }
  * }
  */
+//BFS
 public class Solution {
     public List<List<Integer>> levelOrder(TreeNode root) {
          List<List<Integer>> res = new ArrayList<List<Integer>>();
@@ -48,5 +49,31 @@ public class Solution {
            res.add(cur); 
         }
         return res;
+    }
+}
+//DFS
+public class Solution{
+	public List<List<Integer>> levelOrder(TreeNode root)
+	{
+		List<List<Integer>> res = new ArrayList<List<Integer>>();
+        dfs(root, res, 0);
+        return res;
+    }
+    private void dfs(TreeNode root, List<List<Integer>> res, int level)
+    {
+        if(root == null){
+            return ;
+        }
+         List<Integer> cur = new ArrayList<Integer>();
+         if(res.size() == level)
+         {
+             cur.add(root.val);
+             res.add(cur);
+         }
+         else{
+             res.get(level).add(root.val);
+         }
+        dfs(root.left, res, level+1);
+        dfs(root.right, res, level+1);
     }
 }

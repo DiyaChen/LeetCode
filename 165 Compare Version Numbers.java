@@ -21,10 +21,9 @@ public class Solution {
         String[] v1 = version1.split("\\.");    // regular expression
         String[] v2 = version2.split("\\.");
         int maxLength = Math.max(v1.length, v2.length);
-        int index = 0;
-        while(index < maxLength){
-            int c1 = index < v1.length ? Integer.valueOf(v1[index]) : 0;
-            int c2 = index < v2.length ? Integer.valueOf(v2[index]) : 0;
+        for(int i = 0; i < maxLength; i++)
+            int c1 = i < v1.length ? Integer.valueOf(v1[i]) : 0;
+            int c2 = i < v2.length ? Integer.valueOf(v2[i]) : 0;
             
             if(c1 < c2){
                 return -1;
@@ -32,7 +31,6 @@ public class Solution {
             if(c1 > c2){
                 return 1;
             }
-            index++;
         }
         return 0;
     }

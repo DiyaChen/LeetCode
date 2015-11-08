@@ -16,25 +16,14 @@ public class Solution {
     }
     
     private int aux(int[] num, int a, int b){
-        if(a == b){
+        if(a == b)
             return num[a];
-        }
+        if(num[a]<num[b])
+            return nums[a];
         int m = (a + b) / 2;
-        if(num[a] < num[m]){
-
-            if(num[m] <= num[b]) return aux(num, a, m);
-            else return aux(num, m + 1, b);
-
-        }else if(num[a] > num[m]){
-
-            if(num[m] <= num[b]) return aux(num, a, m);
-            else return aux(num, m + 1, b);
-
-        }else{  // num[a] == num[m]: a == m
-
-            if(num[m] < num[b]) return num[m];
-            else if(num[m] > num[b]) return aux(num, m + 1, b);
-            else return Math.min(aux(num, a, m), aux(num, m + 1, b));
-        }
+        if(num[a] <= num[m]){//if a == m then search the right part, because if a == m, then if num[a] < num[b], we already have this case above
+            return aux(num, m + 1, b);
+        }else 
+            return aux(num, a, m);
     }  
 }
