@@ -29,13 +29,9 @@ public class Solution {
         if(root == null){
             return false;
         }
-        if(root.left == null && root.right == null){
-            if(root.val == sum){
-                return true;
-            }else{
-                return false;
-            }
-        }
-        return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
-    }
+        if(sum == root.val && root.left == null && root.right == null)
+            return true;
+        else
+        	return hasPathSum(root.left, sum - root.val) || hasPathSum(root.right, sum - root.val);
+	}
 }
