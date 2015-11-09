@@ -28,17 +28,11 @@ to
 public class Solution {
     public TreeNode invertTree(TreeNode root) {
         if(root == null) return root;
-        inorderInvert(root);
-        return root;
-    }
-    
-    private void inorderInvert(TreeNode root){
-        if(root == null) return;
-        inorderInvert(root.left);
-        inorderInvert(root.right);
         TreeNode tmp = root.left;
         root.left = root.right;
         root.right = tmp;
-        return;
+        invertTree(root.left);
+        invertTree(root.right);
+        return root;
     }
 }

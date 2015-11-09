@@ -19,15 +19,10 @@ Note: next() and hasNext() should run in average O(1) time and uses O(h) memory,
  */
 
 public class BSTIterator {
-    Stack<TreeNode> stack;
-    
+    Stack<TreeNode> stack = new Stack<TreeNode>();
     public BSTIterator(TreeNode root) {
-        stack = new Stack<TreeNode>();
-        pushAll(root);
-    }
-    
-    private void pushAll(TreeNode root){
-        while(root != null){
+        while(root != null)
+        {
             stack.push(root);
             root = root.left;
         }
@@ -41,8 +36,17 @@ public class BSTIterator {
     /** @return the next smallest number */
     public int next() {
         TreeNode top = stack.pop();
-        pushAll(top.right);
-        return top.val;
+        int res = top.val;
+        if(top.right != null)
+        {
+            top = top.right;
+            while(top != null)
+            {
+                stack.push(top);
+                top = top.left;
+            }
+        }
+        return res;  
     }
 }
 
