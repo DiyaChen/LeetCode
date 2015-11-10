@@ -15,8 +15,7 @@ public class Solution {
         int max = 0;
         for(int i = 1; i < prices.length; i++){
             valley = Math.min(valley, prices[i]);
-            int profit = prices[i] - valley;
-            max = Math.max(max, profit);
+            max = Math.max(max, prices[i] - valley);
         }
         return max;
     }

@@ -14,29 +14,10 @@ public class Solution {
         while(start<end)
         {
             maxArea = Math.max(max, (end-start) * Math.min(height[start], height[end]));
-            if(height[start] > height[end])
+            if(height[start] > height[end])//because the container is based on smaller one, need to change smaller one
                 end--;
             else 
                 start++;
         }
-        /*
-        if(height == null || height.length < 2){
-            return 0;
-        }
-        int max = 0;
-        int head = 0;
-        int rear = height.length - 1;
-        while(head + 1 <= rear){
-            int vol = (rear - head) * Math.min(height[head], height[rear]);
-            if(vol > max){
-                max = vol;
-            }
-            if(height[head] > height[rear]){
-                rear--;
-            }else{
-                head++;
-            }
-        }
-        return max;*/
     }
 }

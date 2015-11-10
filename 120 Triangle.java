@@ -19,41 +19,17 @@ Bonus point if you are able to do this using only O(n) extra space, where n is t
 // Constant space DP
 public class Solution {
     public int minimumTotal(List<List<Integer>> triangle) {
-        int height = triangle.size();
-        int wide = triangle.get(height - 1).size();
-        int sum[] = new int[wide];
-        for(int i = 0; i < wide; i++){
-            sum[i] = triangle.get(height - 1).get(i);   // last row initialized sum array
-        }
-        
-        for(int i = height - 2; i >= 0; i--){   // begin from the second last row
-            for(int j = 0; j < triangle.get(i).size(); j++){    // traverse each row
-                sum[j] = triangle.get(i).get(j) + Math.min(sum[j], sum[j + 1]);
+        if(triangle == null) return 0;
+        int level = triangle.size()-1;
+        List<Integer> res = triangle.get(level);
+        for(int i = level-1; i>=0; i--)
+        {
+            for(int j = 0; j<=i; j++)
+            {
+                int n = Math.min(res.get(j),res.get(j+1)) + triangle.get(i).get(j) ;
+                res.set(j,n);
             }
         }
-        return sum[0];
+        return res.get(0);
     }
-}
-
-
-// Regular DP
-public int minimumTotal(List<List<Integer>> triangle) {
-    if (triangle == null || triangle.size() == 0) {
-        return 0;
-    }
-
-    int n = triangle.size();        // 层数
-    int[][] sum = new int[n][n];
-
-    for (int i = 0; i < n; i++) {
-        sum[n - 1][i] = triangle.get(n - 1).get(i);     // 最后一层各个元素的路径和
-    }
-
-    for (int i = n - 2; i >= 0; i--) { 
-        for (int j = 0; j <= i; j++) {
-            sum[i][j] = Math.min(sum[i + 1][j], sum[i + 1][j + 1]) + triangle.get(i).get(j);    // bottom-up
-        }
-    }
-
-    return sum[0][0];   // finally at the top with the smallest sum
 }

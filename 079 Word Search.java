@@ -20,51 +20,25 @@ word = "ABCB", -> returns false.
 
 public class Solution {
     public boolean exist(char[][] board, String word) {
-        if(board == null || board.length == 0 || word == null || word.length() == 0){
-            return false;
-        }
-        int row = board.length;
-        int col = board[0].length;
-        boolean[][] checker = new boolean[row][col];
-
-        for(int i = 0; i < row; i++){
-            for(int j = 0; j < col; j++){
-                if(aux(board, word, checker, i, j, 0)){
-                    return true;
-                }
+        boolean[][] visited = new boolean[board.length][board[0].length];//record whether this character is visited or not,initialize to false
+        for(int i = 0; i < board.length; i++)
+            for(int j = 0; j < board[0].length; j++)
+            {
+                if(search(board, word, visited, i, j, 0)) return true;
             }
-        }
-        return false;
+            return false;
     }
-    
-    private boolean aux(char[][] board, String word, boolean[][] checker, int row, int col, int index){
-        if(row < 0 || row > board.length - 1){
+    private boolean search(char[][] board, String word, boolean[][] visited,int i, int j, int index )
+    {
+        if(index == word.length()) return true;//stop recursion 
+        if(i>=board.length || i<0 || j>=board[i].length || j<0 || visited[i][j] || word.charAt(index) != board[i][j])
             return false;
-        }
-        if(col < 0 || col > board[0].length - 1){
-            return false;
-        }
-        if(word.charAt(index) != board[row][col] || checker[row][col]){ // checker[row][col] == true: loop exist
-            return false;
-        }
-        if(index == word.length() - 1){
-            return true;
-        }
-
-        checker[row][col] = true;
-        if(row >= 1 && aux(board, word, checker, row - 1, col, index+1)){
-            return true;
-        }
-        if(row <= board.length - 2 && aux(board, word, checker, row + 1, col, index+1)){
-            return true;
-        }
-        if(col >= 1 && aux(board, word, checker, row, col - 1, index+1)){
-            return true;
-        }
-        if(col <= board[0].length - 2 && aux(board, word, checker, row, col + 1, index+1)){
-            return true;
-        }
-        checker[row][col] = false;  // reset the checker
+        visited[i][j] = true;
+        if(search(board,word,visited,i+1, j, index+1)) return true;
+        if(search(board,word,visited,i, j+1, index+1)) return true;
+        if(search(board,word,visited,i-1, j, index+1)) return true;
+        if(search(board,word,visited,i, j-1, index+1)) return true;
+        visited[i][j] = false;//restore
         return false;
     } 
 }
