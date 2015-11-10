@@ -42,14 +42,12 @@ public class Solution {
     public void rotate(int[] nums, int k) {
         if(nums == null || nums.length < 2 || k % nums.length == 0) return;
         k = k % nums.length;
-        int index = nums.length - 1 - k;
-        aux(nums, 0, index);
-        aux(nums, index + 1, nums.length - 1);
+        aux(nums, 0, nums.length - 1 - k);
+        aux(nums, nums.length- k, nums.length - 1);
         aux(nums, 0, nums.length - 1);
     }
     
     private void aux(int[] nums, int start, int end){
-        while(nums == null || nums.length == 1) return;
         while(start < end){
             int tmp = nums[start];
             nums[start] = nums[end];

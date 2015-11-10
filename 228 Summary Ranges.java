@@ -8,30 +8,23 @@ For example, given [0,1,2,4,5,7], return ["0->2","4->5","7"].
 
 public class Solution {
     public List<String> summaryRanges(int[] nums) {
-        List<String>  result = new ArrayList<String>();
-        if(nums == null || nums.length == 0) return result;
-        int len = nums.length;
-        if(len == 1){
-            result.add(Integer.toString(nums[0]));
-            return result;
+       List<String> res = new ArrayList<String>();
+        if(nums == null || nums.length == 0) return res;
+        int s = nums[0];
+        int e = nums[0];
+        for(int i = 1; i< nums.length; i++)
+        {
+             if(nums[i]==nums[i-1]+1)
+                 e = nums[i];
+             else{
+                 if(s == e) res.add(String.valueOf(s));
+                 else res.add(String.valueOf(s)+"->"+String.valueOf(e));
+                 s = nums[i];
+                 e = nums[i];
+             }
         }
-        int start = 0;
-        for(int end = 1; end < len; end++){
-            if(nums[end - 1] + 1 != nums[end]){
-                if(start == end - 1){
-                    result.add(Integer.toString(nums[start]));
-                }else{
-                    result.add(Integer.toString(nums[start]) + "->" + Integer.toString(nums[end - 1]));
-                }
-                start = end;
-            }
-        }
-        // have to add the last segment to result and there are two cases
-        if(start == len - 1){
-            result.add(Integer.toString(nums[start]));
-        }else{
-            result.add(Integer.toString(nums[start]) + "->" + Integer.toString(nums[len - 1]));
-        }
-        return result;
+        if(s == e) res.add(String.valueOf(s));
+        else res.add(String.valueOf(s)+"->"+String.valueOf(e));
+        return res;
     }
 }

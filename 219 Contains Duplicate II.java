@@ -7,17 +7,11 @@ Given an array of integers and an integer k, find out whether there there are tw
 public class Solution {
     public boolean containsNearbyDuplicate(int[] nums, int k) {
         HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();    // <value, index>
-        int diff = Integer.MAX_VALUE;
         for(int i = 0; i < nums.length; i++){
-            if(map.containsKey(nums[i])){
-                int preIndex = map.get(nums[i]);
-                int gap = i - preIndex;
-                diff = Math.min(diff, gap);
-                if(diff <= k){
+            if(map.containsKey(nums[i])&& (i-map.get(nums[i]))<=k)
                     return true;
-                }
-            }
-            map.put(nums[i], i);
+            else 
+                map.put(nums[i], i);
         }
         return false;
     }
