@@ -17,7 +17,7 @@ public class Solution {
         for(int i = 0; i< strs.length; i++){
             char[] chs = strs[i].toCharArray();
             Arrays.sort(chs);
-            String key = String.valueOf(chs);
+            String key = String.valueOf(chs);//sorted string 
             if(!map.containsKey(key)){
                 ArrayList<Integer> ls = new ArrayList<Integer>();
                 ls.add(i);
@@ -27,9 +27,7 @@ public class Solution {
             }
         }
         for(ArrayList<Integer> ls : map.values()){
-            if(ls.size() > 1){
                 res.add(ls);
-            }
         }
         return result;
     }

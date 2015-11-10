@@ -15,32 +15,20 @@ Example: 19 is a happy number
 
 public class Solution {
     public boolean isHappy(int n) {
-        if(n == 0){
-            return false;
-        }
-        HashSet<Integer> appeared = new HashSet<Integer>();
-        while(!appeared.contains(n)){
-            appeared.add(n);
-            int[] digits = getDigits(n);
+        HashMap<Integer,Integer> unhappy = new HashMap<>();
+        while(!unhappy.containsKey(n))
+        {
+            unhappy.put(n,1);
             int sum = 0;
-            for(int i = 0; i < digits.length; i++){
-                sum += digits[i] * digits[i];
+            while(n != 0)
+            {
+                int digit = n % 10;
+                sum += Math.pow(digit,2);
+                n /= 10;
             }
             n = sum;
-            if(n == 1){
-                return true;
-            }
+            if(n == 1) return true;
         }
         return false;
-    }
-    
-    public int[] getDigits(int n){
-        String s = String.valueOf(n);
-        int[] result = new int[s.length()];
-        for(int i = s.length() - 1; i >= 0; i--){
-            result[i] = n % 10;
-            n /= 10;
-        }
-        return result;
     }
 }
