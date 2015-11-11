@@ -10,8 +10,8 @@ public class Solution {
         if(nums == null || nums.length == 0) return result;
         int count1 = 0;
         int count2 = 0;
-        int candidate1 = -1;
-        int candidate2 = -1;
+        int candidate1 = 0;
+        int candidate2 = 0;
         for(int i = 0; i < nums.length; i++){
             if(nums[i] == candidate1){
                 count1++;
