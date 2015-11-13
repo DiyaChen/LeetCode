@@ -47,13 +47,12 @@ public class Solution {
                 result.add(newlist);
             }
         }
-        if(root.left != null){
-            list.add(root.val);
+        list.add(root.val);
+        if(root.left != null){           
             aux(result, list, root.left, sum - root.val);
             list.remove(list.size() - 1);
         }
         if(root.right != null){
-            list.add(root.val);
             aux(result, list, root.right, sum - root.val);
             list.remove(list.size() - 1);
         }

@@ -39,8 +39,9 @@ public class Solution {
     {
         if(s>e) return null;
         int mid = s+(e-s)/2;
+        TreeNode n = new TreeNode(0);
         n.left = buildTree(s,mid-1);
-        TreeNode n = new TreeNode(cur.val);
+        n.val = cur.val;
         cur = cur.next;
         n.right = buildTree(mid+1, e);
         return n;

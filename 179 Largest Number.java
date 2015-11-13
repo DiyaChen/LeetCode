@@ -13,7 +13,7 @@ public class Solution {
         if(nums == null || nums.length == 0){
             return new String();
         }
-        StringBuffer result = new StringBuffer();
+        String res = "";
         String[] str = new String[nums.length];
         for(int i = 0; i < nums.length; i++){
             str[i] = String.valueOf(nums[i]);
@@ -25,12 +25,12 @@ public class Solution {
                 return rightLeft.compareTo(leftRight);
             }
         });
+        
+        if(str[0].euqlas("0"))
+            return "0";
         for(int i = 0; i < nums.length; i++){
-            result.append(str[i]);
+            res += str[i];
         }
-        while(result.charAt(0) == '0' && result.length() > 1){
-            result.deleteCharAt(0);
-        }
-        return result.toString();
+        return res;
     }
 }
