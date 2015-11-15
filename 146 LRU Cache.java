@@ -6,9 +6,17 @@ Design and implement a data structure for Least Recently Used (LRU) cache. It sh
 get(key) - Get the value (will always be positive) of the key if the key exists in the cache, otherwise return -1.
 set(key, value) - Set or insert the value if the key is not already present. When the cache reached its capacity, it should invalidate the least recently used item before inserting a new item.
 */
-
-public class LRUCache {
-    
+class Node{
+    public int key;
+    public int value;
+    public Node pre;
+    public Node next;
+    public Node(int key, int value){
+        this.key = key;
+        this.value = value;
+    }
+}
+public class LRUCache {   
     public int capacity;
     public Map<Integer, Node> cach;
     public Node head;
@@ -56,14 +64,12 @@ public class LRUCache {
     private void moveToTail(Node cur){
         if(cur == tail) return;
         cur.pre.next = cur.next;
-            if(cur.next != null){
-                cur.next.pre = cur.pre;
-            }
-            tail.next = cur;
-            cur.pre = tail;
-            cur.next = null;
-            tail = cur;
-            head = dummy.next;
+        cur.next.pre = dummy;
+        tail.next = cur;
+        cur.pre = tail;
+        cur.next = null;
+        tail = cur;
+        head = dummy.next;
     }
     
     private void removeHead(){
@@ -77,13 +83,3 @@ public class LRUCache {
     }
 }
 
-class Node{
-    public int key;
-    public int value;
-    public Node pre;
-    public Node next;
-    public Node(int key, int value){
-        this.key = key;
-        this.value = value;
-    }
-}
