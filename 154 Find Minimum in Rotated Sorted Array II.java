@@ -16,63 +16,21 @@ The array may contain duplicates.
 
 public class Solution {
     public int findMin(int[] num) {
-        return aux(num, 0, num.length - 1);
-    }
-    
-    private int aux(int[] num, int a, int b){
-        if(a == b){
-            return num[a];
-        }
-        int m = (a + b) / 2;
-        if(num[a] < num[m]){
-
-            if(num[m] <= num[b]) return aux(num, a, m);
-            else return aux(num, m + 1, b);
-
-        }else if(num[a] > num[m]){
-
-            if(num[m] <= num[b]) return aux(num, a, m);
-            else return aux(num, m + 1, b);
-
-        }else{  // num[a] == num[m]
-
-            if(num[m] < num[b]) return num[m];
-            else if(num[m] > num[b]) return aux(num, m + 1, b);
-            else return Math.min(aux(num, a, m), aux(num, m + 1, b));
-        }
-    }
-}
-
-//
-
-public class Solution {
-    public int findMin(int[] num) {
         if(num.length == 0 || num == null){
             return -1;
         }
-        return aux(num, 0, num.length-1);
-    }
-    
-    public int aux(int[] num, int a, int b){
-        if(a == b){
-            return num[a];
+        int left = 0;
+        int right = nums.length-1;
+        while(left < right)
+        {
+            int mid = left + (right-left)/2;
+            while(nums[left] == nums[left+1])
+                left++;
+            if(nums[mid]<=nums[right])
+                right = mid;
+            else
+                left = mid+1;
         }
-        if(a + 1 == b){
-            return num[a] <= num[b] ? num[a] : num[b];
-        }
-        int m = (a+b)/2;
-        if(num[a] == num[m] && num[m] == num[b]){
-            return Math.min(aux(num, a, m), aux(num, m + 1, b));
-        }
-        if(num[a] <= num[m] && num[m] <= num[b]){
-            return aux(num, a, m);
-        }
-        if(num[a] <= num[m] && num[m] >= num[b]){
-            return aux(num, m, b);
-        }
-        if(num[a] >= num[m] && num[m] <= num[b]){
-            return aux(num, a, m);
-        }
-        return -1;
+        return right;
     }
 }

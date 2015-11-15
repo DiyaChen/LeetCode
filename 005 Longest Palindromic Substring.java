@@ -6,7 +6,7 @@ Given a string S, find the longest palindromic substring in S. You may assume th
 
 public class Solution {
     public String longestPalindrome(String s) {
-        if(s.length() == 1){
+        if(s == null || s.length() <= 1){
             return s;
         }
         String longest = "";
