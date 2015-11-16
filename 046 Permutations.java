@@ -10,33 +10,30 @@ For example,
 
 public class Solution {
     public List<List<Integer>> permute(int[] nums) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-        if(nums == null || nums.length == 0){
-            return result;
-        }
-        DFS(result, nums, 0);
-        return result;
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(nums == null || nums.length == 0) return res;
+        List<Integer> cur = new ArrayList<Integer>();
+        boolean[] isVisited = new boolean[nums.length];
+        permute(nums,res,cur,isVisited, 0);
+        return res;
     }
-    
-    private void DFS(List<List<Integer>> result, int[] nums, int start){
-        if(start == nums.length){
-            List<Integer> list = new ArrayList<Integer>();
-            for(int a : nums){
-                list.add(a);
-            }
-            result.add(list);
+    public void permute(int[] nums, List<List<Integer>> res,List<Integer> cur, boolean[] isVisited, int s)
+    {
+        if(cur.size() == nums.length)
+        {
+            res.add(new ArrayList<Integer>(cur));
             return;
         }
-        for(int i = start; i < nums.length; i++){
-            swap(nums, start, i);
-            DFS(result, nums, start + 1);
-            swap(nums, start, i); // restore
+        for(int i = s; i<nums.length; i++)
+        {
+            if(!isVisited[i])
+            {
+                isVisited[i] = true;
+                cur.add(nums[i]);
+                permute(nums, res, cur, isVisited, s);
+                cur.remove(cur.size()-1);
+                isVisited[i] = false;
+            }
         }
-    }
-    
-    private void swap(int[] nums, int a, int b){
-        int tmp = nums[a];
-        nums[a] = nums[b];
-        nums[b] = tmp;
     }
 }

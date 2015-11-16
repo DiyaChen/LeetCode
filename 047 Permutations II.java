@@ -10,40 +10,33 @@ For example,
 
 public class Solution {
     public List<List<Integer>> permuteUnique(int[] nums) {
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-        if(nums == null || nums.length == 0){
-            return result;
-        }
-        dfs(result, nums, 0);
-        return result;
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        if(nums == null || nums.length == 0)
+            return res;
+        Arrays.sort(nums);
+        List<Integer> cur = new ArrayList<Integer>();
+        boolean[] isVisited = new boolean[nums.length];
+        dfs(nums, res, cur, isVisited, 0);
+        return res;
     }
-    
-    private void dfs(List<List<Integer>> result, int[] nums, int start){
-        if(start == nums.length){
-            List<Integer> list = new ArrayList<Integer>();
-            for(int a : nums){
-                list.add(a);
-            }
-            result.add(list);
+    private void dfs(int[] nums, List<List<Integer>> res, List<Integer> cur, boolean[] isVisited, int start){
+        if(cur.size() == nums.length)
+        {
+            res.add(new ArrayList<Integer>(cur));
             return;
         }
-        
-        search:
-        for(int i = start; i < nums.length; i++){
-            for(int j = start; j < i; j++){
-                if(nums[j] == nums[i]){
-                    continue search;    // skip the dup
-                }
+        for(int i = start; i< nums.length; i++)
+        {
+            if(i > start && !isVisited[i-1] && nums[i] == nums[i-1])
+                continue;
+            if(!isVisited[i])
+            {
+                isVisited[i] = true;
+                cur.add(nums[i]);
+                dfs(nums, res, cur, isVisited, start);
+                cur.remove(cur.size()-1);
+                isVisited[i] = false;
             }
-            swap(nums, start, i);
-            dfs(result, nums, start + 1);
-            swap(nums, start, i); // restore
         }
-    }
-    
-    private void swap(int[] nums, int a, int b){
-        int tmp = nums[a];
-        nums[a] = nums[b];
-        nums[b] = tmp;
     }
 }
