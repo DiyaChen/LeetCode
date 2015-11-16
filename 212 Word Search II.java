@@ -25,92 +25,82 @@ If the current candidate does not exist in all words' prefix, you could stop bac
 
 public class Solution {
     public List<String> findWords(char[][] board, String[] words) {
-        List<String> result = new ArrayList<String>();
-        if(board == null || board.length == 0 || board[0].length == 0 || words == null || words.length == 0){
-            return result;
-        }
-        
-        Set<String> set = new HashSet<String>();
+        List<String> res = new ArrayList<String>();
+        if(board == null  || words == null || board.length == 0 || words.length == 0) 
+            return res;
         Trie trie = new Trie();
-        for(String word : words){
-            trie.insert(word);
-        }
-        int row = board.length;
-        int col = board[0].length;
-        boolean[][] checker = new boolean[row][col];
-        for(int i = 0; i < row; i++){
-            for(int j = 0; j < col; j++){
-                dfs(set, board, checker, trie, i, j, "");
+        boolean[][] isVisited = new boolean[board.length][board[0].length];
+        for(int i = 0; i<words.length; i++)
+            trie.insert(words[i]);
+        for(int i = 0; i< board.length; i++)
+        {
+            for(int j = 0; j < board[0].length; j++)
+            {
+                search(res, board,"",isVisited,i,j,trie);
             }
         }
-        result = new ArrayList<String>(set);
-        return result;
+        return res;
     }
-    
-    private void dfs(Set<String> set, char[][] board, boolean[][] checker, Trie trie, int row, int col, String str){
-        if(row < 0 || col < 0 || row >= board.length || col >= board[0].length) return;
-        if(checker[row][col]) return;   // loop exists
-        str += board[row][col];
-        if(!trie.startWith(str)) return;
-        if(trie.search(str)){
-            set.add(str);
+    public void search(List<String> res, char[][] board, String str, boolean[][] isVisited, int i, int j, Trie trie)
+    {
+        if(i < 0 || i>= board.length || j < 0 || j >= board[0].length || isVisited[i][j]) return;
+        str += board[i][j];
+        if(!trie.startWith(str))return;
+        if(trie.search(str))
+        {
+            if(!res.contains(str))
+                res.add(str);
         }
-        checker[row][col] = true;
-        dfs(set, board, checker, trie, row + 1, col, str);
-        dfs(set, board, checker, trie, row - 1, col, str);
-        dfs(set, board, checker, trie, row, col + 1, str);
-        dfs(set, board, checker, trie, row, col - 1, str);
-        checker[row][col] = false;
+        isVisited[i][j] = true;
+        search(res, board, str,isVisited,i+1,j, trie);
+        search(res, board, str,isVisited,i-1,j, trie);
+        search(res, board, str,isVisited,i,j+1, trie);
+        search(res, board, str,isVisited,i,j-1, trie);
+        isVisited[i][j] = false;
     }
 }
-
 class TrieNode{
-    public String item; // leaf node's item is the word, otherwise it is null
+    public String item;
     public TrieNode[] children;
     public TrieNode(){
         item = "";
         children = new TrieNode[26];
     }
 }
-
 class Trie{
     private TrieNode root;
     public Trie(){
         root = new TrieNode();
     }
-    
-    // Insert a word into trie
-    public void insert(String word){
+    public void insert(String word)
+    {
         TrieNode parent = root;
-        for(char ch : word.toCharArray()){
-            if(parent.children[ch - 'a'] == null){
-                parent.children[ch - 'a'] = new TrieNode();
-            }
-            parent = parent.children[ch - 'a'];
+        for(char ch : word.toCharArray())
+        {
+            if(parent.children[ch-'a'] == null)
+                parent.children[ch-'a'] = new TrieNode();
+            parent = parent.children[ch-'a'];
         }
         parent.item = word;
     }
-    
-    // if the word is in the trie
     public boolean search(String word){
         TrieNode parent = root;
-        for(char ch : word.toCharArray()){
-            if(parent.children[ch - 'a'] == null){
+        for(char ch:word.toCharArray())
+        {
+            if(parent.children[ch-'a'] == null) 
                 return false;
-            }
-            parent = parent.children[ch - 'a'];
+            parent = parent.children[ch-'a'];
         }
         return parent.item.equals(word);
     }
-    
-    // if there is any word in the trie that starts with the given prefix
-    public boolean startWith(String prefix){
+    public boolean startWith(String prefix)
+    {
         TrieNode parent = root;
-        for(char ch : prefix.toCharArray()){
-            if(parent.children[ch - 'a'] == null){
+        for(char ch : prefix.toCharArray())
+        {
+            if(parent.children[ch-'a'] == null)
                 return false;
-            }
-            parent = parent.children[ch - 'a'];
+            parent = parent.children[ch-'a'];
         }
         return true;
     }
